@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>BORN OF FUTURE — Cinematic Ocean Portfolio</title>
+<meta name="description" content="An underwater-to-cosmos cinematic portfolio experience." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+
+<!-- ================= CUSTOM CURSOR ================= -->
+<div class="cursor" id="cursor">
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+</div>
+<canvas id="cursor-fx" aria-hidden="true"></canvas>
+
+<!-- ================= LOADER ================= -->
+<div id="loader">
+  <canvas id="loader-particles"></canvas>
+  <div class="loader-crystal-wrap">
+    <svg class="loader-crystal" viewBox="0 0 200 260" width="140" height="182">
+      <defs>
+        <linearGradient id="crystalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#22e5ff"/>
+          <stop offset="55%" stop-color="#8b5cf6"/>
+          <stop offset="100%" stop-color="#eaf4ff"/>
+        </linearGradient>
+        <clipPath id="fillClip">
+          <rect id="fillRect" x="0" y="260" width="200" height="0" />
+        </clipPath>
+      </defs>
+      <polygon class="crystal-outline" points="100,4 180,90 148,256 52,256 20,90"
+        fill="none" stroke="url(#crystalGrad)" stroke-width="1.4"/>
+      <polygon class="crystal-fill" points="100,4 180,90 148,256 52,256 20,90"
+        fill="url(#crystalGrad)" opacity="0.55" clip-path="url(#fillClip)"/>
+      <line x1="100" y1="4" x2="100" y2="256" stroke="url(#crystalGrad)" stroke-width="0.5" opacity="0.5"/>
+      <line x1="20" y1="90" x2="180" y2="90" stroke="url(#crystalGrad)" stroke-width="0.5" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="loader-info">
+    <span class="loader-label">DESCENDING</span>
+    <span class="loader-percent" id="loaderPercent">0%</span>
+  </div>
+  <div class="loader-bar"><div class="loader-bar-fill" id="loaderBarFill"></div></div>
+</div>
+
+<!-- ================= SITE AUDIO ================= -->
+<button id="soundToggle" class="sound-toggle" aria-label="Toggle ambient sound">
+  <span class="sound-bars"><i></i><i></i><i></i></span>
+  <span class="sound-label">SOUND</span>
+</button>
+
+<!-- ================= NAV ================= -->
+<nav class="floating-nav" id="floatingNav">
+  <div class="nav-mark">B·F</div>
+  <ul class="nav-links">
+    <li><a href="#hero" data-nav>Surface</a></li>
+    <li><a href="#thoughts" data-nav>Thoughts</a></li>
+    <li><a href="#aquarium" data-nav>Aquarium</a></li>
+    <li><a href="#cosmos" data-nav>Cosmos</a></li>
+    <li><a href="#finale" data-nav>Finale</a></li>
+  </ul>
+</nav>
+
+<!-- ================= WEBGL CANVAS (persistent, full-bleed) ================= -->
+<canvas id="webgl" aria-hidden="true"></canvas>
+
+<main id="smooth-wrapper">
+<div id="smooth-content">
+
+  <!-- ============ HERO ============ -->
+  <section class="section hero" id="hero">
+    <div class="depth-tag">00 / DEPTH 0m</div>
+    <h1 class="hero-title" id="heroTitle" aria-label="Born of Future">
+      <span class="line" data-word="BORN">
+        <span>B</span><span>O</span><span>R</span><span>N</span>
+      </span>
+      <span class="line accent" data-word="OF">
+        <span>O</span><span>F</span>
+      </span>
+      <span class="line" data-word="FUTURE">
+        <span>F</span><span>U</span><span>T</span><span>U</span><span>R</span><span>E</span>
+      </span>
+    </h1>
+    <p class="hero-sub">Built For The Future</p>
+    <a href="#depth" class="btn-magnetic" data-magnetic>
+      <span>Dive Deeper</span>
+    </a>
+    <div class="scroll-hint"><span></span></div>
+  </section>
+
+  <!-- ============ SECTION TWO — DESCENT ============ -->
+  <section class="section descent" id="depth">
+    <div class="depth-tag">01 / DEPTH 400m</div>
+    <h2 class="section-title">The Descent</h2>
+    <p class="section-copy">Light thins. Pressure gathers. Every current below carries<br>
+    a memory the surface never learns.</p>
+  </section>
+
+  <!-- ============ SECTION THREE — MY THOUGHTS ============ -->
+  <section class="section thoughts" id="thoughts">
+    <h2 class="section-title small-title">My Thoughts</h2>
+    <div class="thought-stream" id="thoughtStream">
+      <p class="thought" data-thought>Dream.</p>
+      <p class="thought" data-thought>Imagine.</p>
+      <p class="thought" data-thought>Create.</p>
+      <p class="thought" data-thought>Explore.</p>
+      <p class="thought" data-thought>Universe.</p>
+      <p class="thought" data-thought>Infinity.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECTION FOUR — WHALE ============ -->
+  <section class="section whale-scene" id="whale">
+    <div class="depth-tag">02 / DEPTH 900m</div>
+    <p class="whale-caption">Every Idea Starts Small.</p>
+  </section>
+
+  <!-- ============ SECTION FIVE — AQUARIUM ============ -->
+  <section class="section aquarium" id="aquarium">
+    <h2 class="section-title small-title">Interactive Aquarium</h2>
+    <p class="section-copy">Move your cursor through the water.</p>
+    <canvas id="aquarium-canvas"></canvas>
+  </section>
+
+  <!-- ============ SECTION SIX — THOUGHT CARDS ============ -->
+  <section class="section cards-section" id="poetry">
+    <h2 class="section-title small-title">Fragments</h2>
+    <div class="cards-grid">
+      <article class="glass-card" data-tilt>
+        <span class="card-index">I</span>
+        <p class="card-text">The sea keeps every letter<br>it was never sent —<br>folded into salt,<br>addressed to no one,<br>read by everyone.</p>
+      </article>
+      <article class="glass-card" data-tilt>
+        <span class="card-index">II</span>
+        <p class="card-text">Somewhere past the light,<br>a slow blue animal<br>carries the shape<br>of every idea<br>too large to hold.</p>
+      </article>
+      <article class="glass-card" data-tilt>
+        <span class="card-index">III</span>
+        <p class="card-text">We are built of the same<br>thing as the tide —<br>arriving, leaving,<br>arriving again,<br>never once the same water.</p>
+      </article>
+      <article class="glass-card" data-tilt>
+        <span class="card-index">IV</span>
+        <p class="card-text">Stars are just the ocean<br>learning to be quiet.<br>Look up. Look down.<br>It was always<br>one water.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ SECTION SEVEN — TRANSITION TO SPACE ============ -->
+  <section class="section transition-scene" id="ascend">
+    <div class="depth-tag">03 / SURFACE → SIGNAL</div>
+    <h2 class="section-title">The Water Remembers The Sky</h2>
+  </section>
+
+  <!-- ============ SECTION EIGHT — SOLAR SYSTEM ============ -->
+  <section class="section cosmos" id="cosmos">
+    <h2 class="section-title small-title">The Wider Water</h2>
+    <p class="section-copy">Nine bodies. One gravity. Move your cursor to steer the sky.</p>
+  </section>
+
+  <!-- ============ FINAL SECTION ============ -->
+  <section class="section finale" id="finale">
+    <h2 class="finale-title">THANK YOU</h2>
+    <div class="finale-buttons">
+      <a href="#poetry" class="btn-magnetic" data-magnetic><span>Read My Poetry</span></a>
+      <a href="#hero" class="btn-magnetic ghost" data-magnetic><span>Explore More</span></a>
+      <button class="btn-magnetic ghost" id="backToTop" data-magnetic><span>Back To Top</span></button>
+    </div>
+    <p class="finale-foot">Crafted in the deep. Rendered in light.</p>
+  </section>
+
+</div>
+</main>
+
+<script src="https://unpkg.com/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/cursor.js"></script>
+<script src="js/loader.js"></script>
+<script src="js/three-scene.js"></script>
+<script src="js/aquarium.js"></script>
+<script src="js/script.js"></script>
+</body>
+</html>
